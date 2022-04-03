@@ -1,5 +1,6 @@
 const config = require("../config/db.config.js");
-const Sequelize = require("sequelizeConfig");
+const Sequelize = require("sequelize");
+
 const sequelizeConfig = new Sequelize(
   config.DB,
   config.USER,
@@ -22,8 +23,8 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelizeConfig;
 
 // Atribui ao objeto db todas as models
-db.user = require("../models/user.model.js")(sequelizeConfig, Sequelize);
-db.category = require("../models/category.model.js")(sequelizeConfig, Sequelize);
+db.user = require("./user.model.js")(sequelizeConfig, Sequelize);
+db.category = require("./category.model.js")(sequelizeConfig, Sequelize);
 
 // Relacionamento entre as tabelas
 db.category.belongsToMany(db.user, {

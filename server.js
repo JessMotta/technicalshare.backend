@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // primeira rota
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Application is running healthy." });
 });
 // configura a porta, inicia o servidor.
 const PORT = process.env.PORT || 8080;

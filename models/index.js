@@ -21,4 +21,21 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelizeConfig;
 
+// Atribui ao objeto db todas as models
+db.user = require("../models/user.model.js")(sequelizeConfig, Sequelize);
+db.category = require("../models/category.model.js")(sequelizeConfig, Sequelize);
+
+// Relacionamento entre as tabelas
+db.category.belongsToMany(db.user, {
+  through: "user_category",
+  foreignKey: "categoryId",
+  otherKey: "userId"
+});
+
+db.user.belongsToMany(db.category, {
+  through: "user_category",
+  foreignKey: "userId",
+  otherKey: "categoryId"
+});
+
 module.exports = db;

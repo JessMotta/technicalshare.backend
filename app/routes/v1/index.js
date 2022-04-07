@@ -8,11 +8,10 @@ const defaultRoutes = [
     path: '/users',
     route: userRoute,
   },
-  // TODO: Criar rota do swagger
-  // {
-  //   path: '/docs',
-  //   route: docsRoute,
-  // },
+  {
+    path: '/docs',
+    route: docsRoute,
+  },
 ];
 
 

@@ -180,7 +180,7 @@ module.exports = router;
  *           type: string
  *         description: User id
  *     responses:
- *       "200":
+ *       "204":
  *         description: No content
  *       "403":
  *         $ref: '#/components/responses/Forbidden'

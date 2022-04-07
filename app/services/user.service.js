@@ -1,6 +1,8 @@
 const httpStatus = require('http-status');
-const User = require('../models/user');
+const db = require('../models');
 const ApiError = require('../utils/ApiError');
+
+const User = db.User;
 
 /**
  * Create a user
@@ -47,8 +49,7 @@ const updateUserById = async (userId, updateBody) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
 
-  const emailExists = await User.findOne({ where: { email: userBody.email } });
-  if (updateBody.email && emailExists) {
+  if (updateBody.email && (await User.findOne({ where: { email: updateBody.email } }))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
 

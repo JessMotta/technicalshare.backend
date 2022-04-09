@@ -8,3 +8,11 @@ router
   .post(categoryController.createCategory)
   .get(categoryController.getCategories);
 
+router
+  .route('/:categoryId')
+  .get(categoryController.getCategory)
+  .patch(categoryController.updateCategory)
+  .delete(categoryController.deleteCategory);
+
+module.exports = router;
+

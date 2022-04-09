@@ -28,8 +28,54 @@ const getCategories = async () => {
   return categories;
 };
 
+/**
+ * Gets a category by id
+ * @param {string} categoryId
+ * @returns {Promise<Category>}
+ */
+const getCategoryById = async (id) => {
+  return Category.findByPk(id);
+};
+
+/**
+ * Updates a category by id
+ * @param {string} categoryId
+ * @param {Object} updateBody
+ * @returns {Promise<Category>}
+ */
+const updateCategoryById = async (categoryId, updateBody) => {
+  const category = await getCategoryById(categoryId);
+  if (!category) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
+  }
+
+  if (updateBody.name && (await Category.findOne({ where: { name: updateBody.name } }))) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Category already exists');
+  }
+
+  Object.assign(category, updateBody);
+  await category.save();
+  return category;
+};
+
+/**
+ * Deletes a category by id
+ * @param {ObjectId} categoryId
+ * @returns {Promise<Category>}
+ */
+const deleteCategoryById = async (categoryId) => {
+  const category = await getCategoryById(categoryId);
+  if (!category) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
+  }
+  await category.destroy();
+  return category;
+};
 
 module.exports = {
   createCategory,
   getCategories,
+  getCategoryById,
+  updateCategoryById,
+  deleteCategoryById,
 };

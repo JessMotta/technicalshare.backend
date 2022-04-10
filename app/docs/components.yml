@@ -44,6 +44,15 @@ components:
           example:
             code: 400
             message: Email already taken
+    DuplicateName:
+      description: Name already exists
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            code: 400
+            message: Name already exists
     Unauthorized:
       description: Unauthorized
       content:

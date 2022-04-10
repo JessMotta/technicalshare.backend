@@ -3,6 +3,7 @@ const db = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const Category = db.Category;
+const User = db.User;
 
 /**
  * Create a category
@@ -35,6 +36,27 @@ const getCategories = async () => {
  */
 const getCategoryById = async (id) => {
   return Category.findByPk(id);
+};
+
+/**
+ * Gets all users in a category
+ * @param {string} categoryId
+ * @returns {Promise<Category>}
+ */
+const getCategoryUsersByCategoryId = async (id) => {
+  return Category.findByPk(id, {
+    include: [
+      {
+        model: User,
+        as: "Users",
+        attributes: ["id", "name", "email"],
+      }
+    ]
+  })
+    .then((response) => response)
+    .catch((err) => {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Error finding category users', true, err);
+    });
 };
 
 /**
@@ -76,6 +98,7 @@ module.exports = {
   createCategory,
   getCategories,
   getCategoryById,
+  getCategoryUsersByCategoryId,
   updateCategoryById,
   deleteCategoryById,
 };

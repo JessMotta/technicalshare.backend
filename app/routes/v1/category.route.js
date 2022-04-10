@@ -65,6 +65,12 @@ module.exports = router;
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *      - in: query
+ *        name: name
+ *        schema:
+ *          type: string
+ *        description: The name of the category to search for. The search is case insensitive and the query can be a partial match.
  *     responses:
  *       "200":
  *         description: OK

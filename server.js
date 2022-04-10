@@ -5,9 +5,6 @@ const app = express();
 const httpStatus = require('http-status');
 const routes = require('./app/routes/v1');
 const ApiError = require('./app/utils/ApiError');
-const corsOptions = {
-  origin: "http://localhost:8081"
-};
 const db = require("./app/models");
 
 // Para atualizar o banco de dados quando em desenvolvimento
@@ -15,7 +12,7 @@ const db = require("./app/models");
 //   console.log('Drop and Resync Db');
 // });
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

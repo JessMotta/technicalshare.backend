@@ -14,6 +14,10 @@ router
   .patch(categoryController.updateCategory)
   .delete(categoryController.deleteCategory);
 
+router
+  .route('/:categoryId/users')
+  .get(categoryController.getCategoryUsersByCategoryId)
+
 module.exports = router;
 
 /**
@@ -156,4 +160,31 @@ module.exports = router;
  *         description: No content
  *       "404":
  *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /categories/{id}/users:
+ *   get:
+ *     summary: Finds all users by category id. Returns a category if it exists. The category has a list of users who have it.
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Category id
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/Category'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ *
  */

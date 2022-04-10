@@ -15,6 +15,7 @@ if (config.use_env_variable) {
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
+        require: true,
         rejectUnauthorized: false
       }
     }

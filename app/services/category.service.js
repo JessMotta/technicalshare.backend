@@ -4,6 +4,7 @@ const ApiError = require('../utils/ApiError');
 
 const Category = db.Category;
 const User = db.User;
+const Op = db.Sequelize.Op;
 
 /**
  * Create a category
@@ -22,9 +23,23 @@ const createCategory = async (category) => {
 
 /**
  * Query for all categories
+ * @param {string} filter - filter by category name
  * @returns {Promise<QueryResult>}
  */
-const getCategories = async () => {
+const getCategories = async (filter) => {
+
+  if (filter) {
+    const categories = await Category.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${filter}%`
+        }
+      }
+    });
+
+    return categories
+  }
+
   const categories = await Category.findAll();
   return categories;
 };

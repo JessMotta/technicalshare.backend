@@ -3,6 +3,7 @@ const db = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const User = db.User;
+const Category = db.Category;
 
 /**
  * Create a user
@@ -28,6 +29,13 @@ const queryUsers = async () => {
     attributes: {
       exclude: ['password'],
     },
+    include: [
+      {
+        model: Category,
+        as: "Categories",
+        attributes: ["id", "name"],
+      }
+    ]
   });
   return users;
 };
@@ -38,7 +46,18 @@ const queryUsers = async () => {
  * @returns {Promise<User>}
  */
 const getUserById = async (id) => {
-  return User.findByPk(id);
+  return User.findByPk(id, {
+    attributes: {
+      exclude: ['password'],
+    },
+    include: [
+      {
+        model: Category,
+        as: "Categories",
+        attributes: ["id", "name"],
+      }
+    ]
+  });
 };
 
 /**
@@ -76,10 +95,31 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
+/**
+ * Associates a category to an user by id
+ * @param {number} userId
+ * @param {number} categoryId
+ * @returns {Promise<User>}
+ */
+const associateCategoryToUser = async (userId, categoryId) => {
+  const user = await getUserById(userId);
+  const category = await Category.findByPk(categoryId);
+
+  if (!user || !category) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User or Category not found');
+  }
+
+  const rating = Math.floor(Math.random() * 5) + 1;
+  user.addCategories(category, { through: { rating: rating < 3 ? 3 : rating } });
+
+  return user;
+};
+
 module.exports = {
   createUser,
   queryUsers,
   getUserById,
   updateUserById,
   deleteUserById,
+  associateCategoryToUser
 };

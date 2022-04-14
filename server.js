@@ -5,6 +5,8 @@ const app = express();
 const httpStatus = require('http-status');
 const routes = require('./app/routes/v1');
 const ApiError = require('./app/utils/ApiError');
+const { errorConverter, errorHandler } = require('./app/middlewares/error');
+
 const db = require("./app/models");
 
 // Para atualizar o banco de dados quando em desenvolvimento
@@ -23,6 +25,12 @@ app.use('/v1', routes);
 app.use((req, res, next) => {
   next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
 });
+
+// convert error to ApiError, if needed
+app.use(errorConverter);
+
+// handle error
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

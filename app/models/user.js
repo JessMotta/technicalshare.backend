@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsToMany(models.Category, {
-        through: 'UserCategory',
+        through: 'UserCategories',
       });
     }
   }

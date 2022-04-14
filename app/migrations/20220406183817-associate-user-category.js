@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.createTable(
-      'UserCategory',
+      'UserCategories',
       {
         createdAt: {
           allowNull: false,
@@ -14,11 +14,15 @@ module.exports = {
           type: Sequelize.DATE,
         },
         UserId: {
-          type: Sequelize.UUID,
+          type: Sequelize.INTEGER,
           primaryKey: true,
         },
         CategoryId: {
-          type: Sequelize.UUID,
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+        },
+        rating: {
+          type: Sequelize.INTEGER,
           primaryKey: true,
         },
       }
@@ -26,6 +30,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.dropTable('UserCategory');
+    return queryInterface.dropTable('UserCategories');
   }
 };

@@ -31,10 +31,17 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const associateCategory = catchAsync(async (req, res) => {
+  const result = await userService.associateCategoryToUser(req.params.userId, req.params.categoryId);
+
+  res.send(result);
+});
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  associateCategory,
 };

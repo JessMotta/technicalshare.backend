@@ -3,23 +3,19 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Category extends Model {
+  class UserCategories extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      this.belongsToMany(models.User, {
-        through: 'UserCategories',
-      });
-    }
+    static associate(models) { }
   }
-  Category.init({
-    name: DataTypes.STRING
+  UserCategories.init({
+    rating: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Category',
+    modelName: 'UserCategories',
   });
-  return Category;
+  return UserCategories;
 };

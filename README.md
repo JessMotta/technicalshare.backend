@@ -40,6 +40,8 @@ suas dúvidas sobre a área ou te orientar no aprendizado de novas habilidades.
 
 Desenvolvido durante o Hackathon do programa de formação da FCamara
 
+### Swagger em produção: https://technical-share-20.herokuapp.com/v1/docs/
+
 ---
 
 ## 🚀 Como executar o projeto
